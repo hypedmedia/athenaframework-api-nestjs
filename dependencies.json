@@ -1,0 +1,3 @@
+{
+    "dependencies": ["@nestjs/core", "@nestjs/common", "@nestjs/platform-express"]
+}
