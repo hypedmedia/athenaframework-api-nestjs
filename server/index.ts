@@ -1,8 +1,8 @@
-import 'reflect-metadata';
+import 'reflect-metadata'
 import * as alt from 'alt-server';
 import { NestFactory } from '@nestjs/core/nest-factory';
 import { PluginSystem } from '../../../server/systems/plugins';
-import { AthenaAPIModule } from './src/api/athenaAPIModule';
+import { AthenaAPIModule } from './src/api/modules/athenaAPIModule';
 
 const PLUGIN_NAME = 'UNOFFICIAL Athena API';
 const port = 9090;
