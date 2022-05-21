@@ -5,6 +5,7 @@ import { Collections } from '../../../../../../server/interface/iDatabaseCollect
 
 @Controller('/accounts')
 export class AthenaAPIAccounts {
+    /* A function that is called when the user goes to the url /accounts/discord?id=id */
     @Get('/discord')
     async discord(@Query() query: { id: string }) {
         const account = await Database.fetchData<Account>('discord', query.id, Collections.Accounts);
