@@ -1,3 +1,12 @@
 {
-    "dependencies": ["reflect-metadata", "@nestjs/core", "@nestjs/common", "@nestjs/platform-express"]
+    "dependencies": [
+        "dotenv",
+        "reflect-metadata",
+        "passport-http",
+        "@nestjs/core",
+        "@nestjs/common",
+        "@nestjs/platform-express",
+        "@nestjs/config",
+        "@nestjs/passport"
+    ]
 }
