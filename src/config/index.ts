@@ -1,8 +1,8 @@
 export const configAPI = {
     apiName: 'Athena API',
-    apiPort: 9090,
-    dbHost: '',
-    dbName: '',
+    apiPort: 1337,
+    dbHost: 'mongodb://0.0.0.0:27017',
+    dbName: 'athena',
 }
 
 export const enum COLLECTIONS {

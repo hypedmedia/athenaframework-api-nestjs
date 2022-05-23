@@ -1,29 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
-import { COLLECTIONS } from 'src/config';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Account, AccountDocument } from 'src/schemas/api-account.schema';
 
 @Injectable()
 export class AccountService {
-    constructor(@InjectConnection() private readonly connection: Connection) {}
+    constructor(
+        @InjectModel(Account.name)
+        private readonly account: Model<AccountDocument>,
+    ) {}
 
-    async getAllAccounts() {
-        const results = await this.connection.db
-            .collection(COLLECTIONS.accounts)
-            .find()
-            .toArray();
+    async getAllAccounts(): Promise<Account[]> {
+        return this.account
+            .find<AccountDocument>({})
+            .select('_id discord lastLogin permissionLevel id');
+    }
 
-        if (results.length > 0) {
-            for (const entry of results) {
-                delete entry.ips;
-                delete entry.hardware;
-                delete entry.email;
-                delete entry.quickToken;
-                delete entry.quickTokenExpiration;
-            }
-            return results;
-        } else {
-            return [];
-        }
+    async getAccountByDiscordId(discordId: string): Promise<AccountDocument> {
+        return this.account.findOne({ discord: discordId }).select('_id discord lastLogin permissionLevel id');
     }
 }

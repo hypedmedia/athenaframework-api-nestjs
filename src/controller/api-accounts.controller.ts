@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AccountService } from 'src/service/api-account.service';
 
 @Controller('accounts')
@@ -8,5 +8,10 @@ export class AccountController {
     @Get('all')
     getAllAccounts() {
         return this.accountService.getAllAccounts();
+    }
+
+    @Get()
+    getAccountByDiscordId(@Query('discordId') discordId: string) {
+        return this.accountService.getAccountByDiscordId(discordId);
     }
 }

@@ -1,45 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Faction, FactionDocument } from 'src/schemas/api-faction.schema';
 
 @Injectable()
 export class FactionService {
-    constructor(@InjectConnection() private readonly connection: Connection) {}
+    constructor(@InjectModel(Faction.name) private readonly faction: Model<FactionDocument>) {}
 
     async getAllFactions() {
-        return this.connection.db.collection('factions').find().toArray();
+        return this.faction.find().select('_id members ranks vehicles storages settings');
     }
 
     async getVehiclesByFactionName(name: string) {
-        const resultFound = await this.connection.db
-            .collection('factions')
-            .findOne({ name: name });
-        if (resultFound) {
-            return { status: 'found', vehicles: resultFound.settings.vehicles };
-        } else {
-            return { name: name, status: 'not found' };
-        }
+        return this.faction.findOne({ name: name }).select('vehicles');
     }
 
     async getFactionStorageByFactionName(name: string) {
-        const resultFound = await this.connection.db
-            .collection('factions')
-            .findOne({ name: name });
-        if (resultFound) {
-            return { status: 'found', storage: resultFound.storage };
-        } else {
-            return { name: name, status: 'not found' };
-        }
+        return this.faction.findOne({ name: name }).select('storage');
     }
 
     async getFactionMembersByFactionName(name: string) {
-        const resultFound = await this.connection.db
-            .collection('factions')
-            .findOne({ name: name });
-        if (resultFound) {
-            return { status: 'found', members: resultFound.members };
-        } else {
-            return { name: name, status: 'not found' };
-        }
+        return this.faction.findOne({ name: name }).select('members');
     }
 }
