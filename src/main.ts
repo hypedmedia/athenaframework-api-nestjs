@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { configAPI } from './config';
-import { AppModule } from './module/athena-api.module';
+import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

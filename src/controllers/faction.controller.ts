@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from "@nestjs/common";
-import { FactionService } from "src/service/api-faction.service";
+import { FactionService } from "src/services/faction.service";
 
 @Controller('factions')
 export class FactionController {
